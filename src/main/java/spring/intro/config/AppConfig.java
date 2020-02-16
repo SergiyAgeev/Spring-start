@@ -16,22 +16,23 @@ import spring.intro.model.User;
 @PropertySource("classpath:db.properties")
 @ComponentScan(basePackages = {
         "spring.intro.dao",
-        "spring.intro.service"
+        "spring.intro.service",
+        "spring.intro.controller"
 })
 public class AppConfig {
-    private final Environment env;
+    private final Environment environment;
 
-    public AppConfig(Environment env) {
-        this.env = env;
+    public AppConfig(Environment environment) {
+        this.environment = environment;
     }
 
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setDriverClassName(environment.getProperty("db.driver"));
+        dataSource.setUrl(environment.getProperty("db.url"));
+        dataSource.setUsername(environment.getProperty("db.username"));
+        dataSource.setPassword(environment.getProperty("db.password"));
         return dataSource;
     }
 
@@ -41,11 +42,12 @@ public class AppConfig {
         factoryBean.setDataSource(getDataSource());
 
         Properties props = new Properties();
-        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-        props.put("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
-        props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        props.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        props.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+        props.put("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+        props.put("hibernate.use_sql_comments",
+                environment.getProperty("hibernate.use_sql_comments"));
+        props.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
