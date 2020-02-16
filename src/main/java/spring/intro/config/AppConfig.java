@@ -33,6 +33,7 @@ public class AppConfig {
         dataSource.setUrl(environment.getProperty("db.url"));
         dataSource.setUsername(environment.getProperty("db.username"));
         dataSource.setPassword(environment.getProperty("db.password"));
+
         return dataSource;
     }
 
@@ -48,6 +49,7 @@ public class AppConfig {
         props.put("hibernate.use_sql_comments",
                 environment.getProperty("hibernate.use_sql_comments"));
         props.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
