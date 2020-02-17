@@ -1,17 +1,12 @@
 package spring.intro;
 
-import spring.intro.model.User;
-
 public class UserResponseDto {
-    private Long id;
     private String name;
     private String email;
 
-    public UserResponseDto(User user) {
-        id = user.getId();
-        name = user.getName();
-        email = user.getEmail();
-
+    public UserResponseDto(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
     public String getName() {

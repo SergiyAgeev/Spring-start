@@ -27,7 +27,9 @@ public class UserController {
     public List<UserResponseDto> getAll() {
         List<UserResponseDto> userDtoList = new ArrayList<>();
         for (User user : userService.listUsers()) {
-            userDtoList.add(new UserResponseDto(user));
+            String name = user.getName();
+            String email = user.getEmail();
+            userDtoList.add(new UserResponseDto(name, email));
         }
         return userDtoList;
     }
@@ -35,7 +37,10 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResponseDto getUser(@PathVariable Long id) {
         User user = userService.get(id);
-        return new UserResponseDto(user);
+        String email = user.getEmail();
+        String name = user.getName();
+        return new UserResponseDto(name, email);
+
     }
 
     @RequestMapping(value = "/inject", method = RequestMethod.GET)
